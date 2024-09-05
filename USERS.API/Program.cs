@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using USERS.API.Data;
+using USERS.API.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -6,18 +11,46 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+IConfiguration Configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+
+builder.Services.AddDbContext<DataContext>(
+    options => options.UseSqlite(Configuration.GetSection("ConnectionStrings")["SQLiteConn"])
+    //options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["SQLServerConn"])
+);
+
+// adicionando a injeção de dependencia para configurar user manager e a classe user que herda de userIdentity
+builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
+
+
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.UseRouting();
     app.UseSwagger();
-    app.UseSwaggerUI();
-   
+    app.UseSwaggerUI(
+        c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "USERS.API v1.0.0");
+        }
+    );
 }
 
+app.UseRouting();
 app.UseHttpsRedirection();
-app.MapControllers();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllerRoute(
+    name: "API",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.Run();

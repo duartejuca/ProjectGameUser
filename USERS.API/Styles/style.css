@@ -1,0 +1,56 @@
+/* Cor de fundo */
+.swagger-ui {
+    background-color: #5f5e5e;
+  }
+  
+  /* Cor do cabeçalho */
+  .swagger-ui .topbar {
+    background-color: #abc;
+    color: #fff;
+  }
+  
+  /* Cor do texto */
+  .swagger-ui .info {
+    color: #666;
+  }
+  
+  /* Estilo dos botões */
+  .swagger-ui .btn {
+    background-color: #337ab7;
+    color: #fff;
+    border-color: #337ab7;
+  }
+  
+  .swagger-ui .btn:hover {
+    background-color: #23527c;
+    border-color: #23527c;
+  }
+  
+  /* Estilo dos links */
+  .swagger-ui a {
+    color: #337ab7;
+  }
+  
+  .swagger-ui a:hover {
+    color: #23527c;
+  }
+  
+  /* Estilo do rodapé */
+  .swagger-ui .footer {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  /* Estilo do título */
+  .swagger-ui .swagger-ui .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #337ab7;
+  }
+  
+  /* Estilo do subtítulo */
+  .swagger-ui .swagger-ui .subtitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: #666;
+  }
