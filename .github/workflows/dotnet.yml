@@ -1,4 +1,4 @@
-name: .NET Core + SonarQube
+name: .NET Core + SonarQube - Code Analysis
 
 on:
   push:
@@ -6,13 +6,14 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  #build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run .NET Core + SonarQube
+      - name: Run Code Analysis
         uses: sonarqube/sonarqube-action@v1
         env:
           SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
@@ -32,11 +33,11 @@ jobs:
       - name: Test
         run: dotnet test -c Release
 
-      - name: Publish
-        run: dotnet publish -c Release -o ./publish -p:Configuration=Release
+      #- name: Publish
+       # run: dotnet publish -c Release -o ./publish -p:Configuration=Release
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: publish
-          path: ./publish/Users.App
+     # - name: Upload artifact
+     #   uses: actions/upload-artifact@v2
+     #   with:
+     #     name: publish
+     #     path: ./publish/Users.App
