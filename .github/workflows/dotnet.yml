@@ -2,14 +2,12 @@ name: .NET Core + SonarQube
 
 on:
   push:
-    branches: 
+    branches:
       - main
 
 jobs:
-  build:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -29,18 +27,16 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build -c Release
-        
+        run: dotnet build -c Release -p:Configuration=Release
+
       - name: Test
-        run: dotnet test
-        
+        run: dotnet test -c Release
+
       - name: Publish
-        run: dotnet publish -c Release -o ./publish
+        run: dotnet publish -c Release -o ./publish -p:Configuration=Release
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: publish
           path: ./publish/Users.App
-
-          
