@@ -28,11 +28,11 @@ jobs:
       - name: Test
         run: dotnet test
 
-      - name: Run SonarQube analysis
+      -- name: Run SonarQube analysis
         uses: sonarqube/sonarqube-action@v1
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+          SONARQUBE_URL: ${{ secrets.SONARQUBE_URL }}
 
       - name: Publish
         run: dotnet publish -c Release -o ./publish
